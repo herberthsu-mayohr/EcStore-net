@@ -1,15 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
-using TestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
+﻿using NUnit.Framework;
 
 namespace IsolatedByInheritanceAndOverride.Test
 {
     /// <summary>
-    /// OrderServiceTest 的摘要描述
+    ///     OrderServiceTest 的摘要描述
     /// </summary>
     [TestFixture]
     public class OrderServiceTest
