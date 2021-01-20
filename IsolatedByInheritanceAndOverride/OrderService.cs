@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 //using System.Net.Http;
 //using System.Net.Http.Formatting;
 using System.Text;
@@ -19,14 +20,20 @@ namespace IsolatedByInheritanceAndOverride
             // only get orders of book
             var ordersOfBook = orders.Where(x => x.Type == "Book");
 
-            var bookDao = new BookDao();
+            var bookDao = GetBookDao();
             foreach (var order in ordersOfBook)
             {
                 bookDao.Insert(order);
             }
         }
 
-        private List<Order> GetOrders()
+        protected virtual IBookDao GetBookDao()
+        {
+            var bookDao = new BookDao();
+            return bookDao;
+        }
+
+        protected virtual List<Order> GetOrders()
         {
             // parse csv file to get orders
             var result = new List<Order>();
@@ -77,7 +84,12 @@ namespace IsolatedByInheritanceAndOverride
         public string CustomerName { get; set; }
     }
 
-    public class BookDao
+    public interface IBookDao
+    {
+        void Insert(Order order);
+    }
+
+    public class BookDao : IBookDao
     {
         public void Insert(Order order)
         {
@@ -88,4 +100,6 @@ namespace IsolatedByInheritanceAndOverride
             throw new NotImplementedException();
         }
     }
+
+    
 }
